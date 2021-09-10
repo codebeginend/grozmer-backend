@@ -13,9 +13,9 @@ services:
       - /opt/files:./upload-dir
     restart: unless-stopped
     depends_on:
-      - postgres
+      - postgresql
     links:
-      - postgres
+      - postgresql
   postgresql:
     image: postgres
     network_mode: bridge
