@@ -6,7 +6,7 @@ EXPOSE 8081
 
 ARG JAR_FILE=target/*.jar
 
-ADD ${JAR_FILE} grozmer.jar
+COPY ${JAR_FILE} grozmer.jar
 
 # Run the jar file
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom", "-Dspring.profiles.active=docker","-jar","/grozmer.jar"]
