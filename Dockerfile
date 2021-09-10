@@ -4,6 +4,7 @@ LABEL maintainer="elbukaevzaur@gmail.com"
 
 EXPOSE 8081
 
+VOLUME /tmp
 
 ARG JAR_FILE=target/*.jar
 
