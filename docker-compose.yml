@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-  courses-service:
-    image: grozmerapi:latest
-    network_mode: bridge
-    container_name: grozmer
-    expose:
-      - 8081
-    ports:
-      - 8081:8081
-    restart: unless-stopped
-    depends_on:
-      - postgresql
-    links:
-      - postgresql
   postgresql:
     image: postgres
     container_name: postgres
