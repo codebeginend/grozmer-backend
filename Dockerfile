@@ -4,7 +4,6 @@ LABEL maintainer="elbukaevzaur@gmail.com"
 
 EXPOSE 8081
 
-VOLUME /opt/java-container
 
 ARG JAR_FILE=target/*.jar
 
