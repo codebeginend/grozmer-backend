@@ -16,6 +16,7 @@ services:
       - postgresql
   postgresql:
     image: postgres
+    container_name: postgres
     network_mode: bridge
     ports:
       - "5432:5432"
