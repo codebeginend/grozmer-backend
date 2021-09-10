@@ -28,7 +28,7 @@ services:
       - /opt/postgresql/data:/var/lib/postgresql/data
   flyway:
     image: boxfuse/flyway
-    command: -url=jdbc:postgresql://postgresql:5432/grozmer -schemas=public -user=postgres -password=password migrate
+    command: -url=jdbc:postgresql://postgres:5432/grozmer -schemas=public -user=postgres -password=password migrate
     volumes:
       - ./src/main/resources/db/migration:/flyway/sql
     depends_on:
