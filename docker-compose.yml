@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  courses-service:
+    image: courses-service:latest
+    network_mode: bridge
+    container_name: grozmer
+    expose:
+      - 8081
+    ports:
+      - 8081:8081
+    volumes:
+      - /opt/files:./upload-dir
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    links:
+      - postgres
+  postgresql:
+    image: postgres
+    network_mode: bridge
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=grozmer
+    volumes:
+      - /opt/postgresql/data:/var/lib/postgresql/data
+  flyway:
+    image: boxfuse/flyway
+    command: -url=jdbc:postgresql://postgresql:5432/grozmer -schemas=public -user=postgres -password=password migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - postgresql
