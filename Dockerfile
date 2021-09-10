@@ -4,7 +4,7 @@ LABEL maintainer="elbukaevzaur@gmail.com"
 
 EXPOSE 8081
 
-ARG JAR_FILE=target/grozmer.jar
+ARG JAR_FILE=target/*.jar
 
 ADD ${JAR_FILE} grozmer.jar
 
