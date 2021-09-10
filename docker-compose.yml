@@ -10,7 +10,7 @@ services:
     ports:
       - 8081:8081
     volumes:
-      - /opt/files:upload-dir
+      - /opt/files:/opt/upload-dir
     restart: unless-stopped
     depends_on:
       - postgresql
