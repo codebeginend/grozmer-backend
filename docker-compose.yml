@@ -12,11 +12,16 @@ services:
     ports:
       - 8081:8081
     restart: unless-stopped
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/grozmer
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
     depends_on:
-      - postgresql
+      - postgres
     links:
-      - postgresql
-  postgresql:
+      - postgres
+  postgres:
     image: postgres
     container_name: postgres
     network_mode: bridge
@@ -34,4 +39,4 @@ services:
     volumes:
       - ./src/main/resources/db/migration:/flyway/sql
     depends_on:
-      - postgresql
+      - postgres
