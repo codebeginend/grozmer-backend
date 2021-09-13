@@ -1,34 +1,20 @@
 package com.beginend.grozmerbackend.entity;
 
-import com.beginend.grozmerbackend.model.Plot;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "plot_docs")
 public class PlotDocsEntity {
 
-    @Getter
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
-    @Setter
     private String name;
 
-    @Getter
-    @Setter
     @Column(name = "doc_type")
     private String docType;
 
-    @Getter
-    @Setter
     @Column(name = "data_type")
     private String dataType;
 
@@ -36,8 +22,47 @@ public class PlotDocsEntity {
     @JoinColumn(name = "plot_id", insertable = false, updatable = false)
     private PlotEntity plot;
 
-    @Getter
-    @Setter
     @Column(name = "plot_id", insertable = true, updatable = true)
     private Long plotId;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDocType() {
+        return docType;
+    }
+
+    public void setDocType(String docType) {
+        this.docType = docType;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public Long getPlotId() {
+        return plotId;
+    }
+
+    public void setPlotId(Long plotId) {
+        this.plotId = plotId;
+    }
 }
