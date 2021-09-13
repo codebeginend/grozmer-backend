@@ -31,8 +31,8 @@ public class GrozmerBackendApplication {
 	@Bean
 	MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();
-		factory.setMaxFileSize(DataSize.ofKilobytes(512));
-		factory.setMaxRequestSize(DataSize.ofKilobytes(512));
+		factory.setMaxFileSize(DataSize.ofKilobytes(24956876));
+		factory.setMaxRequestSize(DataSize.ofKilobytes(24956876));
 		return factory.createMultipartConfig();
 	}
 }
