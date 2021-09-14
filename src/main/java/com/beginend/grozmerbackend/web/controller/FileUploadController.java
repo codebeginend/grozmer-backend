@@ -5,8 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.beginend.grozmerbackend.dao.IPlotDocsDao;
+import com.beginend.grozmerbackend.dao.IPlotProgressDao;
 import com.beginend.grozmerbackend.entity.PlotDocsEntity;
+import com.beginend.grozmerbackend.entity.PlotProgressEntity;
+import com.beginend.grozmerbackend.entity.PlotStatusEnum;
+import com.beginend.grozmerbackend.model.User;
 import com.beginend.grozmerbackend.service.PlotDocsService;
+import com.beginend.grozmerbackend.service.UserService;
 import com.beginend.grozmerbackend.service.storage.StorageFileNotFoundException;
 import com.beginend.grozmerbackend.service.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +19,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,11 +33,15 @@ public class FileUploadController {
 
     private final StorageService storageService;
     private PlotDocsService plotDocsService;
+    private IPlotProgressDao plotProgressDao;
+    private UserService userService;
 
     @Autowired
-    public FileUploadController(StorageService storageService, PlotDocsService plotDocsService) {
+    public FileUploadController(StorageService storageService, PlotDocsService plotDocsService, IPlotProgressDao plotProgressDao, UserService userService) {
         this.storageService = storageService;
         this.plotDocsService = plotDocsService;
+        this.plotProgressDao = plotProgressDao;
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -66,6 +78,16 @@ public class FileUploadController {
         plotDocsEntity.setName(file.getOriginalFilename());
         plotDocsEntity.setDataType(file.getContentType());
         plotDocsEntity = plotDocsService.save(plotDocsEntity);
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) auth.getPrincipal();
+        User user1 = userService.findByLogin(user.getUsername());
+
+        PlotProgressEntity progressEntity = new PlotProgressEntity();
+        progressEntity.setPlotId(plotId);
+        progressEntity.setStatus(PlotStatusEnum.ADD_DOCUMENT);
+        progressEntity.setUserId(user1.getId());
+        plotProgressDao.save(progressEntity);
         return plotDocsEntity;
     }
 

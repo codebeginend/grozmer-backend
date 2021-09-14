@@ -3,7 +3,6 @@ version: '3'
 services:
   grozmerapi:
     image: grozmerapi:latest
-    network_mode: bridge
     container_name: grozmer
     volumes:
       - /opt/upload-dir:/opt/upload-dir
@@ -23,8 +22,6 @@ services:
       - postgres
   postgres:
     image: postgres
-    container_name: postgres
-    network_mode: bridge
     ports:
       - "5432:5432"
     environment:
@@ -34,11 +31,9 @@ services:
     volumes:
       - /opt/postgresql/data:/var/lib/postgresql/data
   flyway:
-    image: boxfuse/flyway
-    command: -url=jdbc:postgresql://postgres:5432/grozmer -schemas=public -user=postgres -password=password migrate
+    image: boxfuse/flyway:5.2.4
     volumes:
       - ./src/main/resources/db/migration:/flyway/sql
     depends_on:
       - postgres
-    links:
-      - postgres
+    command: -user=postgres -password=password -url=jdbc:postgresql://postgres:5432/grozmer migrate

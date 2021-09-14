@@ -1,12 +1,19 @@
 package com.beginend.grozmerbackend.service;
 
 import com.beginend.grozmerbackend.dao.IPlotDao;
+import com.beginend.grozmerbackend.dao.IPlotProgressDao;
 import com.beginend.grozmerbackend.dto.PlotDto;
 import com.beginend.grozmerbackend.entity.PlotEntity;
+import com.beginend.grozmerbackend.entity.PlotProgressEntity;
+import com.beginend.grozmerbackend.entity.PlotStatusEnum;
 import com.beginend.grozmerbackend.entity.UserEntity;
 import com.beginend.grozmerbackend.model.Plot;
+import com.beginend.grozmerbackend.model.User;
 import com.beginend.grozmerbackend.web.exception.WebNotFoundException;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.*;
@@ -17,9 +24,13 @@ public class PlotService {
 
     private IPlotDao plotDao;
     private PlotDto plotDto = new PlotDto();
+    private UserService userService;
+    private IPlotProgressDao plotProgressDao;
 
-    public PlotService(IPlotDao plotDao){
+    public PlotService(IPlotDao plotDao, UserService userService, IPlotProgressDao plotProgressDao){
         this.plotDao = plotDao;
+        this.userService = userService;
+        this.plotProgressDao = plotProgressDao;
     }
 
     public List<Plot> getAll(String search){
@@ -33,7 +44,19 @@ public class PlotService {
     }
 
     public Plot save(Plot plot){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails user = (UserDetails) auth.getPrincipal();
+        User user1 = userService.findByLogin(user.getUsername());
+        PlotProgressEntity progressEntity = new PlotProgressEntity();
+        progressEntity.setUserId(user1.getId());
+        if(plot.getId() == null){
+            progressEntity.setStatus(PlotStatusEnum.CREATE);
+        }else{
+            progressEntity.setStatus(PlotStatusEnum.UPDATE);
+        }
         PlotEntity plotEntity = this.plotDao.save(plotDto.transferModelToEntity(plot));
+        progressEntity.setPlotId(plotEntity.getId());
+        plotProgressDao.save(progressEntity);
         return this.plotDto.transferEntityToModel(plotEntity);
     }
 

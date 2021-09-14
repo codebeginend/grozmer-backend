@@ -28,6 +28,10 @@ public class UserService {
         return this.userDto.transferEntityToModelList(this.userDao.findAll(hasSearch(search)));
     }
 
+    public User findByLogin(String login){
+        return this.userDto.transferEntityToModel(this.userDao.findByLogin(login));
+    }
+
     @Transactional
     public User save(User user){
         return this.userDto.transferEntityToModel(this.userDao.save(this.userDto.transferModelToEntity(user)));

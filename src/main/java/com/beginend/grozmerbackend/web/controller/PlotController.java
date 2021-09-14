@@ -2,6 +2,9 @@ package com.beginend.grozmerbackend.web.controller;
 
 import com.beginend.grozmerbackend.model.Plot;
 import com.beginend.grozmerbackend.service.PlotService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
