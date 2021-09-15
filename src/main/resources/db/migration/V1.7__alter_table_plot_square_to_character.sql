@@ -1,0 +1,1 @@
+ALTER TABLE plot ALTER COLUMN square TYPE character varying(255);

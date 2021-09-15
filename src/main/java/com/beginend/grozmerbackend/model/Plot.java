@@ -6,7 +6,7 @@ public class Plot {
     private Long id;
     private String address;
     private String cadastralNumber;
-    private double square;
+    private String square;
     private String owner;
     private String ownerType;
     private String numberPhone;
@@ -37,11 +37,11 @@ public class Plot {
         this.cadastralNumber = cadastralNumber;
     }
 
-    public double getSquare() {
+    public String getSquare() {
         return square;
     }
 
-    public void setSquare(double square) {
+    public void setSquare(String square) {
         this.square = square;
     }
 

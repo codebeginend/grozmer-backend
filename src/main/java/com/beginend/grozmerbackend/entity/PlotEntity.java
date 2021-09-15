@@ -1,7 +1,5 @@
 package com.beginend.grozmerbackend.entity;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,7 +14,7 @@ public class PlotEntity extends BaseEntity{
     private String address;
 
     private String cadastralNumber;
-    private double square;
+    private String square;
     private String owner;
     private String ownerType;
     private String numberPhone;
@@ -51,11 +49,11 @@ public class PlotEntity extends BaseEntity{
         this.cadastralNumber = cadastralNumber;
     }
 
-    public double getSquare() {
+    public String getSquare() {
         return square;
     }
 
-    public void setSquare(double square) {
+    public void setSquare(String square) {
         this.square = square;
     }
 
