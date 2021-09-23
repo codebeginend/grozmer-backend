@@ -20,6 +20,7 @@ public class PlotEntity extends BaseEntity{
     private String numberPhone;
     private double latitude;
     private double longitude;
+    private boolean active;
 
     @OneToMany(mappedBy = "plot")
     private List<PlotDocsEntity> docs;
@@ -103,5 +104,13 @@ public class PlotEntity extends BaseEntity{
 
     public void setDocs(List<PlotDocsEntity> docs) {
         this.docs = docs;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

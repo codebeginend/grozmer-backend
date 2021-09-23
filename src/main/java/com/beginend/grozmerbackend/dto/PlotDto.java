@@ -23,6 +23,7 @@ public class PlotDto {
             plot.setOwner(entity.getOwner());
             plot.setOwnerType(entity.getOwnerType());
             plot.setNumberPhone(entity.getNumberPhone());
+            plot.setActive(entity.isActive());
             return plot;
     }
 
@@ -37,6 +38,7 @@ public class PlotDto {
         entity.setOwner(model.getOwner());
         entity.setOwnerType(model.getOwnerType());
         entity.setNumberPhone(model.getNumberPhone());
+        entity.setActive(model.isActive());
         return entity;
     }
 }

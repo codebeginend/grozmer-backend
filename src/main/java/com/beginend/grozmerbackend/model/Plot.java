@@ -12,6 +12,7 @@ public class Plot {
     private String numberPhone;
     private double latitude;
     private double longitude;
+    private boolean active;
 
     public Long getId() {
         return id;
@@ -83,5 +84,13 @@ public class Plot {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

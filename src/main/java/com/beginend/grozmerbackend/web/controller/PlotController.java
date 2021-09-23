@@ -2,12 +2,10 @@ package com.beginend.grozmerbackend.web.controller;
 
 import com.beginend.grozmerbackend.model.Plot;
 import com.beginend.grozmerbackend.service.PlotService;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("plot")
@@ -20,8 +18,12 @@ public class PlotController {
     }
 
     @GetMapping("all")
-    public List<Plot> getAll(@RequestParam(required = false) String search){
-        return this.plotService.getAll(search);
+    public List<Plot> getAll(@RequestParam(required = false) String search, @RequestParam(required = false) Boolean active){
+        List<Plot> plots = this.plotService.getAll(search);
+        if(active != null){
+            plots = plots.stream().filter(f -> f.isActive() == active).collect(Collectors.toList());
+        }
+        return plots;
     }
 
     @PostMapping

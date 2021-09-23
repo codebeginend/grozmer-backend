@@ -71,11 +71,12 @@ public class FileUploadController {
 
     @PostMapping("save")
     public PlotDocsEntity handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam Long plotId, @RequestParam String docType) {
-        storageService.store(file);
+        String finename = plotId.toString() + "_" + file.getOriginalFilename();
+        storageService.store(file, finename);
         PlotDocsEntity plotDocsEntity = new PlotDocsEntity();
         plotDocsEntity.setPlotId(plotId);
         plotDocsEntity.setDocType(docType);
-        plotDocsEntity.setName(file.getOriginalFilename());
+        plotDocsEntity.setName(finename);
         plotDocsEntity.setDataType(file.getContentType());
         plotDocsEntity = plotDocsService.save(plotDocsEntity);
 
