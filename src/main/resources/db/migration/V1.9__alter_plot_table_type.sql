@@ -1,0 +1,1 @@
+ALTER TABLE plot ADD COLUMN type character varying(255) NOT NULL DEFAULT 'PLOT';

@@ -22,6 +22,9 @@ public class PlotEntity extends BaseEntity{
     private double longitude;
     private boolean active;
 
+    @Enumerated(EnumType.STRING)
+    private PlotTypesEnum type;
+
     @OneToMany(mappedBy = "plot")
     private List<PlotDocsEntity> docs;
 
@@ -112,5 +115,13 @@ public class PlotEntity extends BaseEntity{
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public PlotTypesEnum getType() {
+        return type;
+    }
+
+    public void setType(PlotTypesEnum type) {
+        this.type = type;
     }
 }

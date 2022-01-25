@@ -1,5 +1,6 @@
 package com.beginend.grozmerbackend.model;
 
+import com.beginend.grozmerbackend.entity.PlotTypesEnum;
 import lombok.Data;
 
 public class Plot {
@@ -13,6 +14,7 @@ public class Plot {
     private double latitude;
     private double longitude;
     private boolean active;
+    private PlotTypesEnum type;
 
     public Long getId() {
         return id;
@@ -92,5 +94,13 @@ public class Plot {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public PlotTypesEnum getType() {
+        return type;
+    }
+
+    public void setType(PlotTypesEnum type) {
+        this.type = type;
     }
 }
