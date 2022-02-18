@@ -1,5 +1,6 @@
 package com.beginend.grozmerbackend.service.storage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -83,8 +84,9 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    public void delete(String filename) {
+        File file = rootLocation.resolve(filename).toFile();
+        FileSystemUtils.deleteRecursively(file);
     }
 
     @Override
