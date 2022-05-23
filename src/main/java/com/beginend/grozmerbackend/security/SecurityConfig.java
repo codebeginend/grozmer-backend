@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/plot/all").authenticated()
                 .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
+                        .antMatchers(HttpMethod.DELETE, "/plot/docs").hasRole("ADMIN")
         .and().addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
