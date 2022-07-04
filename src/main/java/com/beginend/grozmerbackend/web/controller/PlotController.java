@@ -21,11 +21,26 @@ public class PlotController {
         this.plotDocsService = plotDocsService;
     }
 
+    @GetMapping("admin/all")
+    public List<Plot> getAllAdmin(@RequestParam(required = false) String search, @RequestParam(required = false) Boolean active, @RequestParam(required = false) Boolean isSued){
+        List<Plot> plots = this.plotService.getAll(search);
+        if(active != null){
+            plots = plots.stream().filter(f -> f.isActive() == active).collect(Collectors.toList());
+        }
+        if(isSued != null){
+            if(!isSued){
+                List<Long> ids = plots.stream().filter(f -> f.isSued() == true).map(m -> m.getId()).collect(Collectors.toList());
+                plots = plots.stream().filter(f -> !ids.contains(f.getId())).collect(Collectors.toList());
+            }
+        }
+        return plots;
+    }
+
     @GetMapping("all")
     public List<Plot> getAll(@RequestParam(required = false) String search, @RequestParam(required = false) Boolean active){
         List<Plot> plots = this.plotService.getAll(search);
         if(active != null){
-            plots = plots.stream().filter(f -> f.isActive() == active).collect(Collectors.toList());
+            plots = plots.stream().filter(f -> f.isActive() == active && f.isSued() == false).collect(Collectors.toList());
         }
         return plots;
     }

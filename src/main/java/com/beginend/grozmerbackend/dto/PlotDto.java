@@ -25,6 +25,7 @@ public class PlotDto {
             plot.setNumberPhone(entity.getNumberPhone());
             plot.setActive(entity.isActive());
             plot.setType(entity.getType());
+            plot.setSued(entity.isSued());
             return plot;
     }
 
@@ -41,6 +42,7 @@ public class PlotDto {
         entity.setNumberPhone(model.getNumberPhone());
         entity.setActive(model.isActive());
         entity.setType(model.getType());
+        entity.setSued(model.isSued());
         return entity;
     }
 }

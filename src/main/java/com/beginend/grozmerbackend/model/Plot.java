@@ -15,6 +15,7 @@ public class Plot {
     private double longitude;
     private boolean active;
     private PlotTypesEnum type;
+    private boolean isSued;
 
     public Long getId() {
         return id;
@@ -102,5 +103,13 @@ public class Plot {
 
     public void setType(PlotTypesEnum type) {
         this.type = type;
+    }
+
+    public boolean isSued() {
+        return isSued;
+    }
+
+    public void setSued(boolean sued) {
+        isSued = sued;
     }
 }

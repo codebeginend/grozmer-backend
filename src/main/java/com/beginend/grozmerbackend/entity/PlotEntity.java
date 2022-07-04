@@ -21,6 +21,7 @@ public class PlotEntity extends BaseEntity{
     private double latitude;
     private double longitude;
     private boolean active;
+    private boolean isSued;
 
     @Enumerated(EnumType.STRING)
     private PlotTypesEnum type;
@@ -123,5 +124,13 @@ public class PlotEntity extends BaseEntity{
 
     public void setType(PlotTypesEnum type) {
         this.type = type;
+    }
+
+    public boolean isSued() {
+        return isSued;
+    }
+
+    public void setSued(boolean sued) {
+        isSued = sued;
     }
 }

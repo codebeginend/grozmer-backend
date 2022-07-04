@@ -43,9 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED)).and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/plot/all").authenticated()
+                .antMatchers(HttpMethod.GET, "/plot/admin/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.POST, "/auth/signin").permitAll()
                 .antMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                         .antMatchers(HttpMethod.DELETE, "/plot/docs").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/user/all").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/plot/progress/all").hasRole("ADMIN")
         .and().addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
